@@ -84,10 +84,11 @@ int main(int argc, char const *argv[])
 			// send command to server
 			printf("CLIENT : transferring %s to server.\n", buffer);
 			send(client_sock, buffer, MAX_LENGTH, 0);
-			//response wait.
 			put_file(client_sock, fname);
 			bzero(buffer, MAX_LENGTH);
 			recv(client_sock, buffer, MAX_LENGTH, 0);
+
+			
 			if (strcmp(buffer, "SUCCESS"))
 			{
 				printf("Error sending file. Please try again\n");
@@ -425,5 +426,3 @@ void get_file(int client_sock, char *fname)
 		printf("File %s not found.\n", fname); // Operation Aborted\n", fname);
 	}
 }
-
-//vatsa

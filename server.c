@@ -176,7 +176,7 @@ int main(int argc, char const *argv[])
 
 int fileExist(char *fname)
 {
-    int present = 0;
+    int found = 0;
     DIR *di;
     struct dirent *dir;
     di = opendir(DSK);
@@ -184,12 +184,12 @@ int fileExist(char *fname)
     {
         if (strcmp(dir->d_name, fname) == 0)
         {
-            present = 1;
+            found = 1;
             break;
         }
     }
     closedir(di);
-    return present;
+    return found;
 }
 
 int receive_file(int socket, char *fname)
@@ -266,7 +266,7 @@ int send_file(int socket, char *fname)
 void put_file(int accept_sockfd, char *fname)
 {
     char buffer[MAX_LENGTH];
-    if (fileExist(fname) == 1)
+    if (fileExist(fname))
     {
         printf("File Exist\n");
         printf("Do you wish to overwrite the File Contents?\n");
@@ -306,7 +306,7 @@ void put_file(int accept_sockfd, char *fname)
 void get_file(int accept_sockfd, char *fname)
 {
     char buffer[MAX_LENGTH];
-    if (fileExist(fname) == 1)
+    if (fileExist(fname))
     {
         printf("File Exist on the server's disk\n");
         bzero(buffer, MAX_LENGTH);
